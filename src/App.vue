@@ -1,28 +1,57 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-main class="container">
+      <card-dashboard
+        title="Saldo total"
+        :value="303524"
+        :isSubscribers="true"
+      />
+      <card-dashboard
+        title="Saldo total"
+        :value="24545234"
+        :isSubscribers="false"
+      />
+      <card-dashboard
+        title="Saldo total"
+        :value="423452"
+        :isSubscribers="true"
+      />
+      <card-dashboard
+        title="Saldo total"
+        :value="24345234"
+        :isSubscribers="false"
+      />
+      <card-dashboard
+        title="Saldo total"
+        :value="24525234"
+        :isSubscribers="false"
+      />
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import cardDashboard from "./components/CardDashboard.vue";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
+  name: "App",
 
+  components: {
+    cardDashboard,
+  },
+
+  data: () => ({
+    //
+  }),
+};
+</script>
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.v-main__wrap {
+  flex: 0;
 }
 </style>
