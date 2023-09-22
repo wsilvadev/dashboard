@@ -46,10 +46,10 @@ export default {
 
 <style scoped>
 .card {
-  min-width: 100%; /* Ajuste o tamanho do card conforme necessário */
+  width: 100%; /* Ajuste o tamanho do card conforme necessário */
   text-align: center;
-  height: 200px;
   background: #000000;
+  height: 200px;
   border-radius: 20px;
   border-top-left-radius: 90px;
 }
@@ -60,13 +60,13 @@ export default {
 }
 
 .card-value {
-  font-size: 3vw;
+  font-size: 60px;
   font-weight: bold;
   color: #ffffff;
 }
 .card.customCard .card-value {
   color: #000000;
-  font-size: 90px;
+  font-size: 60px;
 }
 .v-card > *:last-child:not(.v-btn):not(.v-chip):not(.v-avatar) {
   border-bottom-left-radius: 0;
@@ -76,7 +76,7 @@ export default {
   position: absolute;
   font-size: 30px;
   width: 60px;
-  background-color: #ffffff;
+  background-color: #898787;
   height: 60px;
   top: 0;
   left: 0;
@@ -97,7 +97,7 @@ export default {
   height: 50px;
   width: 25px;
   border-top-left-radius: 20px;
-  box-shadow: 0 -40px 0 0 #ffffff;
+  box-shadow: 0 -40px 0 0 #898787;
   z-index: -1;
 }
 .card.customCard .currency-symbol::before {
@@ -114,7 +114,7 @@ export default {
   transform: rotate(-90deg);
   width: 25px;
   border-top-right-radius: 20px;
-  box-shadow: 0 -40px 0 0 #ffffff;
+  box-shadow: 0 -40px 0 0 #898787;
   z-index: -1;
 }
 .card.customCard .currency-symbol::after {
@@ -132,6 +132,7 @@ export default {
 }
 .card.customCard .title-wrapper {
   padding: 0;
+  width: 100%;
   justify-content: center;
 }
 .title-wrapper img {
@@ -156,12 +157,14 @@ export default {
   line-height: 100px;
 }
 .card-title {
+  padding-top: 20px;
   font-weight: bold;
   font-size: 20px;
-  color: #fff; /* Tamanho do título */
+  color: #fff;
 }
 .card.customCard .card-title {
   color: #000000;
+  width: 50%;
 }
 .currency-symbol img {
   width: 40px;
