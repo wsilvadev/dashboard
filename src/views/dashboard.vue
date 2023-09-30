@@ -6,7 +6,9 @@
         <div
           v-for="(item, index) in falseItems"
           :key="index"
-          :class="{ falseItem: item }"
+          :class="{
+            falseItem: item,
+          }"
         >
           <card-dashboard-vue
             :isSubscribers="item.isSubscribers"
@@ -19,7 +21,9 @@
         <div
           v-for="(item, index) in trueItems"
           :key="index"
-          :class="{ item: item }"
+          :class="{
+            item: item,
+          }"
         >
           <card-dashboard-vue
             :isSubscribers="item.isSubscribers"
@@ -43,14 +47,46 @@ export default {
   data() {
     return {
       api: [
-        { isSubscribers: false, title: "Saldo total", value: 2344234 },
-        { isSubscribers: false, title: "Faturado", value: 2344234 },
-        { isSubscribers: false, title: "À faturar", value: 2344234 },
-        { isSubscribers: true, title: "Total de Assinantes", value: 234429 },
-        { isSubscribers: true, title: "Assinantes Torcedores", value: 234423 },
-        { isSubscribers: true, title: "Assinantes Voucher", value: 234542 },
-        { isSubscribers: true, title: "Assinantes Sócios", value: 23444 },
-        { isSubscribers: true, title: "Assinantes Cortesia", value: 2348 },
+        {
+          isSubscribers: false,
+          title: "Saldo total",
+          value: 2344234,
+        },
+        {
+          isSubscribers: false,
+          title: "Faturado",
+          value: 2344234,
+        },
+        {
+          isSubscribers: false,
+          title: "À faturar",
+          value: 2344234,
+        },
+        {
+          isSubscribers: true,
+          title: "Total de Assinantes",
+          value: 234429,
+        },
+        {
+          isSubscribers: true,
+          title: "Assinantes Torcedores",
+          value: 234423,
+        },
+        {
+          isSubscribers: true,
+          title: "Assinantes Vouncher",
+          value: 234542,
+        },
+        {
+          isSubscribers: true,
+          title: "Assinantes Sócios",
+          value: 23444,
+        },
+        {
+          isSubscribers: true,
+          title: "Assinantes Cortesia",
+          value: 2348,
+        },
       ],
       trueItems: [],
       falseItems: [],
@@ -70,8 +106,8 @@ export default {
 
 <style scoped>
 .container {
-  padding: 100px;
   height: 100%;
+  padding: 100px;
 }
 .wip {
   font-size: 40px;
@@ -79,24 +115,29 @@ export default {
 }
 
 .container-card {
-  width: 100%;
   display: flex;
-  flex-direction: space-between;
   gap: 20px;
+  width: 100%;
 }
-
 .true-group {
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
   gap: 20px;
+  width: 100%;
+}
+.false-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
 }
 
 .item {
-  width: calc(50% - 10px); /* Dois itens por linha, com espaço entre eles */
+  margin: 0;
   margin-bottom: 10px;
   padding: 0;
-  margin: 0;
+  width: calc(50% - 10px);
+  /* Dois itens por linha, com espaço entre eles */
   /* Espaço inferior entre os itens */
 }
 
@@ -106,20 +147,60 @@ export default {
 .item:nth-child(5) {
   width: calc(33.33% - 14px);
 }
-.false-group {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  gap: 20px;
+.item:nth-child(1)::v-deep .card-value {
+  font-size: 6.6vmin;
+  font-weight: 777;
 }
+.item:nth-child(2)::v-deep .card-value {
+  font-size: 5vmin;
+}
+.item:nth-child(3)::v-deep .card-value {
+  font-size: 4.6vmin;
+}
+.item:nth-child(4)::v-deep .card-value {
+  font-size: 4.6vmin;
+}
+.item:nth-child(5)::v-deep .card-value {
+  font-size: 4.6vmin;
+}
+
 .falseItem {
-  width: calc(100% - 0px); /* Dois itens por linha, com espaço entre eles */
-  margin-bottom: 10px;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  width: calc(100% - 0px);
+  /* Dois itens por linha, com espaço entre eles */
+}
+.falseItem:nth-child(1)::v-deep .card-value {
+  font-size: 5.6vmin;
+}
+.falseItem:nth-child(2)::v-deep .card-value {
+  font-size: 4vmin;
+}
+.falseItem:nth-child(3)::v-deep .card-value {
+  font-size: 4vmin;
 }
 .falseItem:nth-child(2),
 .falseItem:nth-child(3) {
   width: calc(50% - 10px);
+}
+
+@media (max-width: 760px) {
+  .container {
+    padding: 10px;
+  }
+  .container-card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+  .item:nth-child(1) {
+    width: calc(100% - 14px);
+  }
+  .item:nth-child(3),
+  .item:nth-child(4),
+  .item:nth-child(5) {
+    width: calc(50% - 14px);
+  }
 }
 </style>

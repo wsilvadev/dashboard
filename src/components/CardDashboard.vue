@@ -1,27 +1,57 @@
 <template>
-  <v-card
-    class="card"
-    :class="{ customCard: isSubscribers == true }"
-    elevation="2"
-  >
-    <div class="card-header">
-      <span class="currency-symbol">
-        <img src="../assets/people.svg" v-if="isSubscribers == true" />
-        <span v-else> R$</span>
-      </span>
-      <div class="title-wrapper">
-        <span class="card-title">{{ title }}</span>
-        <img src="../assets/download-icon.svg" />
+  <div>
+    <v-card
+      class="card"
+      :class="{
+        customCard: isSubscribers == true,
+      }"
+      elevation="2"
+    >
+      <div class="card-header">
+        <span class="currency-symbol">
+          <img src="../assets/people.svg" v-if="isSubscribers == true" />
+          <span v-else> R$</span>
+        </span>
+        <div class="title-wrapper">
+          <span class="card-title">{{ title }}</span>
+
+          <v-menu
+            transition="scale-transition"
+            v-model="menu"
+            :close-on-content-click="false"
+            location="end"
+          >
+            <template
+              v-slot:activator="{
+                props,
+              }"
+            >
+              <v-btn icon class="icon" v-bind="props" @click="openMenu">
+                <img src="../assets/download-icon.svg" />
+              </v-btn>
+            </template>
+            <modal-download :title="title" />
+          </v-menu>
+        </div>
+        <div class="value-wrapper">
+          <span class="card-value">{{ formatValue }}</span>
+        </div>
       </div>
-    </div>
-    <div class="value-wrapper">
-      <span class="card-value">{{ formatValue }}</span>
-    </div>
-  </v-card>
+    </v-card>
+  </div>
 </template>
 
 <script>
+import ModalDownload from "./ModalDownload.vue";
 export default {
+  data() {
+    return {
+      menu: false,
+    };
+  },
+  components: {
+    ModalDownload,
+  },
   props: {
     title: String, // Título
     value: Number, // Valor
@@ -41,28 +71,36 @@ export default {
       return formattedValue.replace("R$", "").trim();
     },
   },
+  methods: {
+    openMenu() {
+      this.menu = true;
+    },
+  },
 };
 </script>
 
 <style scoped>
 .card {
-  width: 100%; /* Ajuste o tamanho do card conforme necessário */
-  text-align: center;
   background: #000000;
-  height: 200px;
   border-radius: 20px;
   border-top-left-radius: 90px;
+  height: 200px;
+  text-align: center;
+  width: 100%;
+
+  /* Ajuste o tamanho do card conforme necessário */
 }
+
 .card.customCard {
   background: transparent;
-  border-top-left-radius: 94px;
   border: 1px solid black;
+  border-top-left-radius: 94px;
 }
 
 .card-value {
+  color: #ffffff;
   font-size: 60px;
   font-weight: bold;
-  color: #ffffff;
 }
 .card.customCard .card-value {
   color: #000000;
@@ -73,94 +111,93 @@ export default {
   border-bottom-right-radius: 0;
 }
 .currency-symbol {
-  position: absolute;
-  font-size: 30px;
-  width: 60px;
-  background-color: #898787;
-  height: 60px;
-  top: 0;
-  left: 0;
+  background-color: #c7c7c7;
   border-radius: 20px;
-  z-index: 10;
+  font-size: 30px;
+  height: 60px;
+  left: 0;
   padding-top: 10px;
+  position: absolute;
+  top: 0;
+  width: 60px;
+  z-index: 1;
 }
 .card.customCard .currency-symbol {
   border-bottom: 1px solid black;
   border-right: 1px solid black;
 }
 .currency-symbol::before {
-  content: "";
-  position: absolute;
   background-color: transparent;
-  bottom: -50px;
-  left: 0;
-  height: 50px;
-  width: 25px;
   border-top-left-radius: 20px;
-  box-shadow: 0 -40px 0 0 #898787;
+  bottom: -50px;
+  box-shadow: 0 -40px 0 0 #c7c7c7;
+  content: "";
+  height: 50px;
+  left: 0;
+  position: absolute;
+  width: 25px;
   z-index: -1;
 }
 .card.customCard .currency-symbol::before {
-  left: -1px;
   border-top: 1px solid black;
+  left: -1px;
 }
 .currency-symbol::after {
-  content: "";
-  position: absolute;
   background-color: transparent;
+  border-top-right-radius: 20px;
+  box-shadow: 0 -40px 0 0 #c7c7c7;
+  content: "";
+  height: 50px;
+  position: absolute;
   right: -37px;
   top: -12px;
-  height: 50px;
   transform: rotate(-90deg);
   width: 25px;
-  border-top-right-radius: 20px;
-  box-shadow: 0 -40px 0 0 #898787;
   z-index: -1;
 }
 .card.customCard .currency-symbol::after {
-  top: -13px;
   border-top: 1px solid black;
+  top: -13px;
 }
 .title-wrapper {
+  align-items: center;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
   height: 70px;
+  justify-content: space-between;
   padding-left: 70px;
+  width: 100%;
 }
 .card.customCard .title-wrapper {
+  justify-content: center;
   padding: 0;
   width: 100%;
-  justify-content: center;
 }
-.title-wrapper img {
-  width: 40px;
+.title-wrapper .icon {
   margin-right: 30px;
+  width: 40px;
 }
-.card.customCard .title-wrapper img {
+.card.customCard .title-wrapper .icon {
   position: absolute;
   right: 0;
 }
 .value-wrapper {
+  align-items: end;
   display: flex;
+  height: 130px;
+  justify-content: end;
   padding: 20px;
   padding-right: 50px;
-  justify-content: end;
 }
 .card.customCard .value-wrapper {
-  padding: 20px;
+  align-items: end;
   justify-content: center;
-  height: 60%;
-  font-size: 106px;
-  line-height: 100px;
 }
 .card-title {
-  padding-top: 20px;
-  font-weight: bold;
-  font-size: 20px;
   color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 20px;
 }
 .card.customCard .card-title {
   color: #000000;
@@ -168,5 +205,30 @@ export default {
 }
 .currency-symbol img {
   width: 40px;
+}
+.icon img {
+  width: 40px;
+}
+@media (max-width: 760px) {
+  .card {
+    height: 150px;
+  }
+  .value-wrapper {
+    height: 80px;
+  }
+
+  .currency-symbol img {
+    width: 20px;
+  }
+  .icon img {
+    width: 20px;
+  }
+  .card-title {
+    font-size: 10px;
+    padding: 10px;
+  }
+  .title-wrapper .icon {
+    margin-right: 5px;
+  }
 }
 </style>
